@@ -5,6 +5,10 @@
 #include <vector>
 #include <iostream>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Shader.h"
 
 namespace _Render {
@@ -26,7 +30,7 @@ namespace _Render {
 		const char* fshader = "shader_fragment.fs";
 
 		// Texture
-		unsigned int texture;
+		unsigned int texture1, texture2;
 
 		bool closing = false; // TODO: better way to close
 

@@ -2,8 +2,7 @@
 
 int main(int argc, char** argv) {
 	
-	render = new _Render::Render(1920, 1080, "Window Title");
-
+	render = new _Render::Render(800, 600, "My Game");
 
 	bool exit = false;
 	while (!render->is_closing()) {

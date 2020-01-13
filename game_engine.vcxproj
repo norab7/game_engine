@@ -36,7 +36,6 @@
     <ClInclude Include="Main.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
