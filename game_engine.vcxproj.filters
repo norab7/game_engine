@@ -13,9 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="_Objects">
+      <UniqueIdentifier>{a4312d24-e506-4728-b63e-d69cc8434357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Controllers">
+      <UniqueIdentifier>{84b0926b-b29a-476e-9932-29b06da85a25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Shaders">
+      <UniqueIdentifier>{679c6f6a-0a77-4e30-91d4-5df87685af08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="shader_vertex.vs">
+      <Filter>_Shaders</Filter>
+    </None>
+    <None Include="shader_fragment.fs">
+      <Filter>_Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
@@ -23,6 +38,18 @@
     </ClInclude>
     <ClInclude Include="Drawable.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>_Controllers</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>_Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +61,12 @@
     </ClCompile>
     <ClCompile Include="Drawable.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>_Controllers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
