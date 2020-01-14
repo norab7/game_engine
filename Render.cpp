@@ -1,8 +1,5 @@
 #include "Render.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
-
 using namespace _Render;
 
 Render::Render(int window_width, int window_height, const char* title) {
@@ -118,31 +115,9 @@ Render::Render(int window_width, int window_height, const char* title) {
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) (3 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	// Bind and Assign texture 1
-	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	stbi_set_flip_vertically_on_load(true); // Flip inputted texture files
-	int width, height, nrChannels;
-	unsigned char* data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	stbi_image_free(data);
-
-	// Bind and Assign texture 2
-	glGenTextures(1, &texture2);
-	glBindTexture(GL_TEXTURE_2D, texture2);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	data = stbi_load("awesomeface.png", &width, &height, &nrChannels, 0);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	stbi_image_free(data);
+	// Create textures using texture object
+	tex1 = new _Texture::Texture("container.jpg", GL_RGB);
+	tex2 = new _Texture::Texture("awesomeface.png", GL_RGBA);
 
 	// Set textures in the shader class
 	shader->use();
@@ -150,8 +125,10 @@ Render::Render(int window_width, int window_height, const char* title) {
 	shader->setInt("texture2", 1);
 
 	glfwSwapInterval(0);
+	// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Uncomment for Wireframe
 
-	 // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Uncomment for Wireframe
+	camera = new _Camera::Camera(glm::vec3(0, 0, 10));
+	camera->set_target(glm::vec3(0, 0, 0));
 }
 
 Render::~Render() {
@@ -174,34 +151,34 @@ void Render::update() {
 		glm::vec3(-1.3f,  1.0f, -1.5f)
 	};
 
+	// Timeing
+	float currentFrame = glfwGetTime();
+	deltaTime = currentFrame - lastFrame;
+	lastFrame = currentFrame;
 
 	// Input
-	process_input(window);
+	process_keyboard(window, deltaTime);
 
 	// Render
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
 	// Bind textures to shader unifroms
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture1);
+	glBindTexture(GL_TEXTURE_2D, tex1->get());
 	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture2);
+	glBindTexture(GL_TEXTURE_2D, tex2->get());
 	shader->use();
 
-	// Basic Camera and View matrices
-	//model = glm::mat4(1.0f);
-	view = glm::mat4(1.0f);
+	const float radius = 10.0f;
+	// camera->set_position(glm::vec3(sin(glfwGetTime()) * radius, 0, cos(glfwGetTime()) * radius));
+	view = camera->look_at();
+
 	projection = glm::mat4(1.0f);
-	//model = glm::rotate(model, (float) glfwGetTime(), glm::vec3(0.5f, 1.0f, 0.0f));
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f)); // translate in reverse direction
 	projection = glm::perspective(glm::radians(45.0f), (float) (window_width / window_height), 0.1f, 100.0f);
-	// retrieve the matrix uniform locations
+
 	unsigned int viewLoc = glGetUniformLocation(shader->ID, "view");
-	// pass them to the shaders (3 different ways)
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &view[0][0]);
-	// note: currently we set the projection matrix each frame, but since the projection matrix rarely changes it's often best practice to set it outside the main loop only once.
 	shader->setMat4("projection", projection);
 
 	glBindVertexArray(VAO);
@@ -232,11 +209,17 @@ void Render::update() {
 	}
 }
 
-void Render::process_input(GLFWwindow* window) {
+void Render::process_keyboard(GLFWwindow* window, float delta) {
 	if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, true);
 		closing = true;
 	}
+
+	if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) { camera->process_keyboard(delta, 'W'); }
+	if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) { camera->process_keyboard(delta, 'S'); }
+	if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) { camera->process_keyboard(delta, 'A'); }
+	if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) { camera->process_keyboard(delta, 'D'); }
+
 }
 
 bool Render::update_viewport(int width, int height, int start_width, int start_height) {

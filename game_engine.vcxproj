@@ -24,20 +24,24 @@
     <None Include="shader_vertex.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Render.cpp" />
+    <ClCompile Include="Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Controller.h" />
-    <ClInclude Include="Drawable.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Process_Input.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Render.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

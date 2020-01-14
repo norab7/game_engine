@@ -9,7 +9,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#ifndef STB_IMAGE_H
+#define STB_IMAGE_H
+#include <stb_image.h>
+#endif // !STB_IMAGE_H
+
 #include "Shader.h"
+#include "Texture.h"
+#include "Camera.h"
 
 namespace _Render {
 	class Render {
@@ -24,7 +31,7 @@ namespace _Render {
 		unsigned int fragmentShader;
 		int shaderProgram;
 
-		glm::mat4 model, view, projection, cameraPos;
+		glm::mat4 model, view, projection;
 
 		// Shader
 		Shader* shader;
@@ -33,6 +40,15 @@ namespace _Render {
 
 		// Texture
 		unsigned int texture1, texture2;
+		_Texture::Texture* tex1;
+		_Texture::Texture* tex2;
+
+		// Camera
+		_Camera::Camera* camera;
+
+		// Timeing
+		float deltaTime = 0.0f;
+		float lastFrame = 0.0f;
 
 		bool closing = false; // TODO: better way to close
 
@@ -42,7 +58,9 @@ namespace _Render {
 		~Render();
 
 		void update();
-		void process_input(GLFWwindow* window);
+		void process_keyboard(GLFWwindow* window, float delta);
+		void process_mouse_movement(GLFWwindow* window);
+		void process_mouse_scroll(GLFWwindow* window);
 		bool update_viewport(int width, int height, int start_width = 0, int start_height = 0);
 		bool is_closing();
 

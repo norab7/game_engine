@@ -22,6 +22,12 @@
     <Filter Include="_Shaders">
       <UniqueIdentifier>{679c6f6a-0a77-4e30-91d4-5df87685af08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="_Visuals">
+      <UniqueIdentifier>{56ae8026-ba5e-41ea-afa5-055e8778caba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_Virtual">
+      <UniqueIdentifier>{73bc917a-fad0-4200-943a-b1a7c39497fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -36,9 +42,6 @@
     <ClInclude Include="Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Render.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -50,6 +53,15 @@
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>_Visuals</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>_Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Process_Input.h">
+      <Filter>_Virtual</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +81,12 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
+      <Filter>_Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>_Visuals</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
       <Filter>_Objects</Filter>
     </ClCompile>
   </ItemGroup>
