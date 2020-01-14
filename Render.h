@@ -13,6 +13,10 @@
 
 namespace _Render {
 	class Render {
+		const char* window_title;
+		int window_width;
+		int window_height;
+
 		GLFWwindow* window;
 		unsigned int VBO, VAO, EBO;
 
@@ -20,9 +24,7 @@ namespace _Render {
 		unsigned int fragmentShader;
 		int shaderProgram;
 
-		const char* window_title;
-		int window_width;
-		int window_height;
+		glm::mat4 model, view, projection, cameraPos;
 
 		// Shader
 		Shader* shader;

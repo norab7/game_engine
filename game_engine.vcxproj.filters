@@ -48,6 +48,9 @@
     <ClInclude Include="Shader.h">
       <Filter>_Shaders</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>_Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -64,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>_Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
