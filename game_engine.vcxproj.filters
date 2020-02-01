@@ -13,81 +13,105 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="_Objects">
-      <UniqueIdentifier>{a4312d24-e506-4728-b63e-d69cc8434357}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="_Controllers">
-      <UniqueIdentifier>{84b0926b-b29a-476e-9932-29b06da85a25}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="_Shaders">
-      <UniqueIdentifier>{679c6f6a-0a77-4e30-91d4-5df87685af08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="_Visuals">
+    <Filter Include="Rendering">
       <UniqueIdentifier>{56ae8026-ba5e-41ea-afa5-055e8778caba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="_Virtual">
+    <Filter Include="Rendering\Source">
+      <UniqueIdentifier>{4d37524b-b286-41be-9040-99e8e5636e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Header">
+      <UniqueIdentifier>{fd983909-9a33-4d07-99a4-8585f7e9a8cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering\Shaders">
+      <UniqueIdentifier>{f57055dc-5d7d-4839-bd90-7ede242c4cfd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pure Virtuals">
       <UniqueIdentifier>{73bc917a-fad0-4200-943a-b1a7c39497fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects">
+      <UniqueIdentifier>{29ffe598-3732-44e4-a372-4aca813ed001}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Source">
+      <UniqueIdentifier>{bb447e54-2b8c-44b4-94ab-7a31563c7d14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\Header">
+      <UniqueIdentifier>{f4319a98-286b-4151-a17d-b0ef0f660ef7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="shader_vertex.vs">
-      <Filter>_Shaders</Filter>
-    </None>
     <None Include="shader_fragment.fs">
-      <Filter>_Shaders</Filter>
+      <Filter>Rendering\Shaders</Filter>
+    </None>
+    <None Include="shader_vertex.vs">
+      <Filter>Rendering\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Render.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>_Controllers</Filter>
+    <ClInclude Include="Process_Input.h">
+      <Filter>Pure Virtuals</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
-      <Filter>_Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>_Objects</Filter>
+      <Filter>Rendering\Header</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>_Visuals</Filter>
+      <Filter>Rendering\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Rendering\Header</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>_Objects</Filter>
+      <Filter>Game Objects\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Process_Input.h">
-      <Filter>_Virtual</Filter>
+    <ClInclude Include="Entity.h">
+      <Filter>Game Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Player_Character.h">
+      <Filter>Game Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Render.h">
+      <Filter>Rendering\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Rendering\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Game Objects\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Render.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>_Controllers</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>_Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>_Visuals</Filter>
+      <Filter>Rendering\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Rendering\Source</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>_Objects</Filter>
+      <Filter>Game Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Game Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Player_Character.cpp">
+      <Filter>Game Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Render.cpp">
+      <Filter>Rendering\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Rendering\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Game Objects\Source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

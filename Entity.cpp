@@ -2,14 +2,14 @@
 
 using namespace _Entity;
 
-Entity::Entity(const char* name, glm::vec3 pos) {
-	this->name = name;
+Entity::Entity(const char* id, glm::vec3 pos) {
+	this->id = id;
 	this->position = pos;
 	matrix = glm::translate(glm::mat4(1.0f), pos);
 }
 
 bool Entity::isEqual(Entity e) {
-	return strcmp(this->name, e.name) == 0;
+	return strcmp(this->id, e.id) == 0;
 }
 
 
@@ -38,17 +38,19 @@ void Entity::remove_children() {
 	children.clear();
 }
 
+glm::mat4 Entity::get_matrix() {
+	return this->matrix;
+}
+
 glm::vec3 Entity::get_position() {
 	return position;
 }
 
 void Entity::set_position(glm::vec3 pos) {
 	this->position = pos;
-	matrix = glm::mat4(matrix[0][0], matrix[0][1], matrix[0][2], position.x,
-		matrix[1][0], matrix[1][1], matrix[1][2], position.y,
-		matrix[2][0], matrix[2][1], matrix[2][2], position.z,
-		matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3]);
-
+	matrix[0][3] = position.x;
+	matrix[1][3] = position.y;
+	matrix[2][3] = position.z;
 }
 
 void Entity::transform(glm::mat4 trans) {

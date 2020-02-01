@@ -4,7 +4,10 @@
 #include "Process_Input.h"
 
 namespace _Camera {
-	class Camera : public _Entity::Entity, _Process_Input::Process_Input {
+	class Camera : public _Entity::Entity {
+
+
+	protected:
 		glm::vec3 target;
 		glm::vec3 direction;
 		glm::vec3 up;
@@ -13,20 +16,19 @@ namespace _Camera {
 
 		glm::mat4 view;
 
-		const float speed = 0.005f;
-		float delta = 1.0f;
+		float yaw = -90.0f;
+		float pitch = 0.0f;
 
+		const float speed = 0.05f;
+
+		void update_vectors();
 	public:
 		Camera(glm::vec3 pos = glm::vec3(0, 0, 0));
 		~Camera();
 
-		glm::mat4 look_at();
+		glm::mat4& look_at();
 
 		void set_target(glm::vec3 target, glm::vec3 world_up = glm::vec3(0, 1, 0));
-		void update_delta(float delta);
 
-		void process_keyboard(float delta, const char key) override;
-		void process_mouse_movement() override;
-		void process_mouse_scroll() override;
 	};
 }

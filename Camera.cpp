@@ -3,9 +3,8 @@
 using namespace _Camera;
 
 // TODO: Remove camera string
-
 Camera::Camera(glm::vec3 pos) : Entity::Entity("Camera", pos) {
-	set_target(glm::vec3(pos.x, pos.y, pos.z - 3));
+	set_target(glm::vec3(pos.x, pos.y, pos.z-1));
 }
 
 void Camera::set_target(glm::vec3 target, glm::vec3 world_up) {
@@ -14,33 +13,26 @@ void Camera::set_target(glm::vec3 target, glm::vec3 world_up) {
 	this->right = glm::normalize(glm::cross(world_up, direction));
 	this->up = glm::normalize(glm::cross(direction, right));
 	this->front = glm::normalize(-direction);
-	this->view = look_at();
 }
 
-glm::mat4 Camera::look_at() {
+glm::mat4& Camera::look_at() {
 	view = glm::lookAt(position, position + front, up);
 	return view;
 }
 
-void Camera::update_delta(float delta) {
-	this->delta = delta;
-}
+void Camera::update_vectors() {
+	glm::vec3 worldup = glm::vec3(0, 1, 0);
 
-void Camera::process_keyboard(float delta, const char key) {
-	// TODO: figure out why adding deltaTime causes huge lag
-	float deltaSpeed = speed; // * delta;
-	if(key == 'W') { position += deltaSpeed * front; }
-	if(key == 'S') { position -= deltaSpeed * front; }
-	if(key == 'A') { position -= glm::normalize(glm::cross(front, up)) * deltaSpeed; }
-	if(key == 'D') { position += glm::normalize(glm::cross(front, up)) * deltaSpeed; }
-}
+	// looking at directions
+	glm::vec3 direction;
+	direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	direction.y = sin(glm::radians(pitch));
+	direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front = glm::normalize(direction);
 
-void Camera::process_mouse_movement() {
-
-}
-
-void Camera::process_mouse_scroll() {
-
+	// standard directions
+	right = glm::normalize(glm::cross(front, worldup));
+	up = glm::normalize(glm::cross(right, front));
 }
 
 Camera::~Camera() {

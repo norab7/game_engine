@@ -6,7 +6,7 @@
 
 namespace _Entity {
 	class Entity {
-		const char* name;
+		const char* id;
 		bool child = false;
 
 	protected:
@@ -15,7 +15,7 @@ namespace _Entity {
 
 		std::vector<Entity> children;
 	public:
-		Entity(const char* name, glm::vec3 pos = glm::vec3(0, 0, 0));
+		Entity(const char* id, glm::vec3 pos = glm::vec3(0, 0, 0));
 
 		bool isEqual(Entity e);
 
@@ -25,6 +25,7 @@ namespace _Entity {
 
 		glm::vec3 get_position();
 
+		glm::mat4 get_matrix();
 		void set_position(glm::vec3 pos);
 		void transform(glm::mat4 trans);
 		void translate(glm::vec3 trans);
