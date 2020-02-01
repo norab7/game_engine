@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 
 	// Initial Values, references, pointers
 	player->set_position(glm::vec3(0, 0, 10));
-	render->add_game_object(*new GameObject("nanosuit", "resources/nanosuit/nanosuit.obj"));
+	render->add_game_object(*new GameObject("tv", "resources/graphics_objects/tv.obj"));
 
 
 	// Assign Callback

@@ -19,8 +19,6 @@ void Player_Character::process_keyboard(bool* KEYS) {
 }
 
 void Player_Character::process_mouse_movement(double xpos, double ypos) {
-
-	float sensitivity = 0.05;
 	yaw += xpos * sensitivity;
 	pitch += ypos * sensitivity;
 

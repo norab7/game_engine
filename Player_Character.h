@@ -5,7 +5,7 @@
 namespace _Player_Character {
 	class Player_Character : public _Camera::Camera, _Process_Input::Process_Input {
 		bool firstMouse = true;
-
+		float sensitivity = 0.025;
 	protected:
 	public:
 		Player_Character();

@@ -113,35 +113,43 @@ unsigned int Model::texture_from_file(const char* path, const std::string& dir, 
 	// Load and store the texture in a char array
 	int width, height, components;
 	unsigned char* data = stbi_load(filename.c_str(), &width, &height, &components, 0);
-	if(data) {
-		GLenum format;
+	if(!data) {
+		// if loading from obj data does not work, try loading direct from obj location
+		filename = dir + '/' + std::string(path).substr(std::string(path).find_last_of("/\\") + 1);
+		data = stbi_load(filename.c_str(), &width, &height, &components, 0);
 
-		// Check the type of texture then set the format
-		if(components == 1) {
-			format = GL_RED;
-		} else if(components == 3) {
-			format = GL_RGB;
-		} else if(components == 4) {
-			format = GL_RGBA;
+		if(!data) {
+			// If there is still no texture file found, just throw an error
+			std::cout << "Model::texture_from_file: Texture failed to load at path: " << path << std::endl;
+			stbi_image_free(data);
+			return textureID;
 		}
-
-		// Standard binding of textureID, and size information
-		glBindTexture(GL_TEXTURE_2D, textureID);
-		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-
-		// How the texture will be displayed in different situations like wrapping etc
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-		// Free up the space used
-		stbi_image_free(data);
-	} else {
-		std::cout << "Model::texture_from_file: Texture failed to load at path: " << path << std::endl;
-		stbi_image_free(data);
 	}
+
+	GLenum format;
+
+	// Check the type of texture then set the format
+	if(components == 1) {
+		format = GL_RED;
+	} else if(components == 3) {
+		format = GL_RGB;
+	} else if(components == 4) {
+		format = GL_RGBA;
+	}
+
+	// Standard binding of textureID, and size information
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	// How the texture will be displayed in different situations like wrapping etc
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	// Free up the space used
+	stbi_image_free(data);
 
 	// return the textureID as it is bound and can be referred to through its ID
 	return textureID;
