@@ -9,7 +9,12 @@ int main(int argc, char** argv) {
 
 	// Initial Values, references, pointers
 	player->set_position(glm::vec3(0, 0, 10));
-	render->add_game_object(*new GameObject("tv", "resources/graphics_objects/tv.obj"));
+
+	int base_position = 3;
+	render->add_game_object(*new GameObject("tv", "resources/graphics_objects/tv.obj", glm::vec3(base_position * 0, 0, 0)));
+	render->add_game_object(*new GameObject("desk", "resources/graphics_objects/desk.obj", glm::vec3(base_position * 1, 0, 0)));
+	render->add_game_object(*new GameObject("lamp_standing", "resources/graphics_objects/lamp_standing.obj", glm::vec3(base_position * 2, 0, 0)));
+	render->add_game_object(*new GameObject("table_single", "resources/graphics_objects/table_single.obj", glm::vec3(base_position * 3, 0, 0)));
 
 
 	// Assign Callback
