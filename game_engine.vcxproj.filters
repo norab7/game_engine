@@ -25,9 +25,6 @@
     <Filter Include="Rendering\Shaders">
       <UniqueIdentifier>{f57055dc-5d7d-4839-bd90-7ede242c4cfd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Pure Virtuals">
-      <UniqueIdentifier>{73bc917a-fad0-4200-943a-b1a7c39497fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game Objects">
       <UniqueIdentifier>{29ffe598-3732-44e4-a372-4aca813ed001}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,9 @@
     </Filter>
     <Filter Include="Game Objects\Physics">
       <UniqueIdentifier>{da635bce-cd8a-4a66-806f-5c2daf6d14d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{73bc917a-fad0-4200-943a-b1a7c39497fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,9 +53,6 @@
   <ItemGroup>
     <ClInclude Include="Main.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Process_Input.h">
-      <Filter>Pure Virtuals</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Rendering\Header</Filter>
@@ -90,8 +87,11 @@
     <ClInclude Include="AABB_Tree.h">
       <Filter>Game Objects\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="Process_AABB.h">
-      <Filter>Pure Virtuals</Filter>
+    <ClInclude Include="I_Input.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="I_AABB.h">
+      <Filter>Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -126,6 +126,9 @@
       <Filter>Game Objects\Source</Filter>
     </ClCompile>
     <ClCompile Include="AABB.cpp">
+      <Filter>Game Objects\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB_Tree.cpp">
       <Filter>Game Objects\Physics</Filter>
     </ClCompile>
   </ItemGroup>

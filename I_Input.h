@@ -1,8 +1,8 @@
 #pragma once
 #include <glfw3.h>
 
-namespace _Process_Input {
-	class Process_Input {
+namespace _I_Input {
+	class I_Input {
 	protected:
 	public:
 		virtual void process_keyboard(bool* KEYS) = 0;

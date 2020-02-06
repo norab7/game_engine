@@ -1,8 +1,6 @@
 // Credit to: James Randall; github.com/JamesRandall/SimpleVoxelEngine/blob/master/voxelEngine/include/AABB.h
 #include "AABB.h"
-#include <algorithm>
 
-using namespace _AABB;
 
 AABB::AABB() : minx(0), miny(0), minz(0), maxx(0), maxy(0), maxz(0), surface_area(0) {
 	// Intentionally Blank
