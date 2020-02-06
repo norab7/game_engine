@@ -73,8 +73,8 @@ void Render::update() {
 		//g.rotate((int) (currentFrame * 100), glm::vec3(0, 1, 0));
 		shader->setMat4("model", g.get_matrix());
 
-		g.randomize_mesh_vertices();
-		g.Draw(*shader);
+		// g.randomize_mesh_vertices();
+		g.Draw(*shader, true);
 	}
 	// nanosuit->Draw(*shader);
 

@@ -37,6 +37,9 @@
     <Filter Include="Game Objects\Header">
       <UniqueIdentifier>{f4319a98-286b-4151-a17d-b0ef0f660ef7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Objects\Physics">
+      <UniqueIdentifier>{da635bce-cd8a-4a66-806f-5c2daf6d14d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -60,9 +63,6 @@
     <ClInclude Include="Texture.h">
       <Filter>Rendering\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Rendering\Header</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Game Objects\Header</Filter>
     </ClInclude>
@@ -75,11 +75,23 @@
     <ClInclude Include="Render.h">
       <Filter>Rendering\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Rendering\Header</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Game Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Game Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Game Objects\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB.h">
+      <Filter>Game Objects\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="AABB_Tree.h">
+      <Filter>Game Objects\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Process_AABB.h">
+      <Filter>Pure Virtuals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +102,6 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Rendering\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
       <Filter>Rendering\Source</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
@@ -107,11 +116,17 @@
     <ClCompile Include="Render.cpp">
       <Filter>Rendering\Source</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Rendering\Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>Game Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Game Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Game Objects\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AABB.cpp">
+      <Filter>Game Objects\Physics</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
