@@ -2,6 +2,7 @@
 #pragma once
 
 #include <algorithm>
+#include <iostream>
 
 class AABB {
 	// Calculate Heuristic for positioning in tree format

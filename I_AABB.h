@@ -1,6 +1,5 @@
 #pragma once
-
-struct AABB;
+#include "AABB.h"
 
 class I_AABB {
 

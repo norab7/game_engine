@@ -10,31 +10,63 @@ int main(int argc, char** argv) {
 	// Initial Values, references, pointers
 	player->set_position(glm::vec3(0, 0, 10));
 
-	int base_position = 3;
-	render->add_game_object(*new GameObject("lamp_standing", "resources/graphics_objects/lamp_standing.obj", glm::vec3(-1, -2, -3)));
-
 	// Assign Callback
 	setup_callbacks();
 
+	// std::map<std::shared_ptr<I_AABB>, unsigned>
+	std::map<std::shared_ptr<I_AABB>, std::shared_ptr<GameObject>> object_map;
+
 	srand(glfwGetTime());
-	for(unsigned int i = 0; i < 10; i++) {
-		render->add_game_object(*new GameObject("lamp_standing", "resources/graphics_objects/lamp_standing.obj", glm::vec3((rand() % 20) - 10)));
+	GameObject left = *new GameObject("left", "resources/graphics_objects/lamp_standing.obj", glm::vec3(-5, 0, 0));
+	GameObject right = *new GameObject("right", "resources/graphics_objects/lamp_standing.obj", glm::vec3(1, 0, 0));
+
+
+	game_objects.push_back(std::make_shared<GameObject>(left));
+	game_objects.push_back(std::make_shared<GameObject>(right));
+
+	for(unsigned i = 0; i < game_objects.size(); i++) {
+		boundary_volume.insert(game_objects[i]);
+		object_map[game_objects[i]] = game_objects[i];
 	}
-	for(unsigned int i = 0; i < 10; i++) {
-		render->add_game_object(*new GameObject("lamp_standing", "resources/graphics_objects/lamp_standing.obj", glm::vec3((rand() % 20) - 10, (rand() % 20) - 10, (rand() % 20) - 10)));
-	}
+
+	unsigned max_move = 2000;
+	float sensitivity = 1000;
+
+	bool collision = false;
 
 	while(!shut_down) {
 
 		// Process Inputs
 		process_input();
 
-		// Update Scene
+		std::vector<std::shared_ptr<I_AABB>> collisions = boundary_volume.check_overlaps(game_objects[0]);
+		if(!collisions.empty()) {
+			collision = true;
 
+			for(std::shared_ptr<I_AABB> collide : collisions) {
+				if(object_map[collide] == game_objects[1]) {
+					std::wcout << "Collision: " << (*object_map[collide]).get_id() << std::endl;
+				}
+			}
+		}
+
+		// Update Scene
+		for(unsigned i = 0; i < game_objects.size(); i++) {
+			if((*game_objects[i]).get_id() == "left") {
+				if(collision) {
+					(*game_objects[i]).translate(glm::vec3(-0.01, 0, 0));
+				} else {
+					(*game_objects[i]).translate(glm::vec3(0.01, 0, 0));
+				}
+
+
+				if((*game_objects[i]).get_position().x < -2) { collision = false; }
+			}
+		}
 
 		// Render Scene
 		render->set_camera(player->look_at());
-		render->update();
+		render->update(game_objects);
 	}
 
 	std::cout << "Press return to exit" << std::endl;
@@ -44,6 +76,12 @@ int main(int argc, char** argv) {
 
 void process_input() {
 	player->process_keyboard(KEY_PRESS);
+}
+
+void create_game_object(const char* id, const char* dir, glm::vec3 position) {
+	GameObject object(id, dir, position);
+
+
 }
 
 void setup_callbacks() {

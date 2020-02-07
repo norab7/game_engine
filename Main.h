@@ -1,7 +1,10 @@
 #pragma once
 
 #include <iostream>
+#include <map>
+#include <memory>
 
+#include "AABB_Tree.h"
 #include "Render.h"
 #include "Player_Character.h"
 
@@ -22,8 +25,14 @@ bool firstMouse = true;
 float lastX = 0;
 float lastY = 0;
 
+// Objects and Physics
+std::vector<std::shared_ptr<GameObject>> game_objects;
+AABB_Tree boundary_volume(10);
+std::map<std::shared_ptr<I_AABB>, std::shared_ptr<GameObject>> boundary_map;
+
 // Functions
 void process_input();
+void create_game_object(const char* id, const char* dir, glm::vec3 position = glm::vec3(0));
 
 // Call Backs
 void setup_callbacks();

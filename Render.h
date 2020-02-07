@@ -47,7 +47,6 @@ namespace _Render {
 		float lastFrame = 0.0f;
 
 		bool closing = false; // TODO: better way to close
-		std::vector<GameObject> objects;
 
 	protected:
 	public:
@@ -58,8 +57,7 @@ namespace _Render {
 		
 		void set_camera(glm::mat4& camera);
 
-		void update();
-		void add_game_object(GameObject);
+		void update(const std::vector<std::shared_ptr<GameObject>>& objects);
 	};
 }
 

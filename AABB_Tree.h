@@ -53,6 +53,6 @@ public:
 	void insert(const std::shared_ptr<I_AABB>& obj);
 	void remove(const std::shared_ptr<I_AABB>& obj);
 	void update(const std::shared_ptr<I_AABB>& obj);
-	std::forward_list<std::shared_ptr<I_AABB>> check_overlaps(const std::shared_ptr<I_AABB>& obj) const;
+	std::vector<std::shared_ptr<I_AABB>> check_overlaps(const std::shared_ptr<I_AABB>& obj) const;
 
 };

@@ -50,7 +50,7 @@ Render::~Render() {
 	glfwTerminate();
 }
 
-void Render::update() {
+void Render::update(const std::vector<std::shared_ptr<GameObject>>& objects) {
 
 	// Timeing
 	float currentFrame = glfwGetTime();
@@ -67,14 +67,14 @@ void Render::update() {
 	shader->setMat4("projection", projection);
 	shader->setMat4("view", view);
 
-	for(GameObject g : objects) {
+	for(unsigned i = 0; i < objects.size(); i++) {
 
 		//g.scale(glm::vec3(0.5, 0.5, 0.5));
 		//g.rotate((int) (currentFrame * 100), glm::vec3(0, 1, 0));
-		shader->setMat4("model", g.get_matrix());
+		 shader->setMat4("model", (*objects[i]).get_matrix());
 
 		// g.randomize_mesh_vertices();
-		g.Draw(*shader, true);
+		 (*objects[i]).Draw(*shader, true);
 	}
 	// nanosuit->Draw(*shader);
 
@@ -93,8 +93,4 @@ GLFWwindow* Render::get_window() {
 
 void Render::set_camera(glm::mat4& camera) {
 	this->view = camera;
-}
-
-void Render::add_game_object(GameObject obj) {
-	objects.push_back(obj);
 }

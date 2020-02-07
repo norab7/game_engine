@@ -34,11 +34,11 @@
     <Filter Include="Game Objects\Header">
       <UniqueIdentifier>{f4319a98-286b-4151-a17d-b0ef0f660ef7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Objects\Physics">
-      <UniqueIdentifier>{da635bce-cd8a-4a66-806f-5c2daf6d14d4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Interfaces">
       <UniqueIdentifier>{73bc917a-fad0-4200-943a-b1a7c39497fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Objects\AABB">
+      <UniqueIdentifier>{da635bce-cd8a-4a66-806f-5c2daf6d14d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,10 +82,10 @@
       <Filter>Game Objects\Header</Filter>
     </ClInclude>
     <ClInclude Include="AABB.h">
-      <Filter>Game Objects\Physics</Filter>
+      <Filter>Game Objects\AABB</Filter>
     </ClInclude>
     <ClInclude Include="AABB_Tree.h">
-      <Filter>Game Objects\Physics</Filter>
+      <Filter>Game Objects\AABB</Filter>
     </ClInclude>
     <ClInclude Include="I_Input.h">
       <Filter>Interfaces</Filter>
@@ -126,10 +126,10 @@
       <Filter>Game Objects\Source</Filter>
     </ClCompile>
     <ClCompile Include="AABB.cpp">
-      <Filter>Game Objects\Physics</Filter>
+      <Filter>Game Objects\AABB</Filter>
     </ClCompile>
     <ClCompile Include="AABB_Tree.cpp">
-      <Filter>Game Objects\Physics</Filter>
+      <Filter>Game Objects\AABB</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

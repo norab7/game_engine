@@ -86,9 +86,9 @@ void AABB_Tree::update(const std::shared_ptr<I_AABB>& obj) {
 }
 
 // TODO: change to vector maybe as forward_list is not used anywhere else and harder to explain than std::vector
-std::forward_list<std::shared_ptr<I_AABB>> AABB_Tree::check_overlaps(const std::shared_ptr<I_AABB>& obj) const {
+std::vector<std::shared_ptr<I_AABB>> AABB_Tree::check_overlaps(const std::shared_ptr<I_AABB>& obj) const {
 	// Setup empty linked list of shared_pointers
-	std::forward_list<std::shared_ptr<I_AABB>> overlaps;
+	std::vector<std::shared_ptr<I_AABB>> overlaps;
 	std::stack<unsigned> stack;
 
 	// get the AABB of the given object
@@ -114,7 +114,7 @@ std::forward_list<std::shared_ptr<I_AABB>> AABB_Tree::check_overlaps(const std::
 			// if the current overlap is a leaf and not the current object
 			// add the node to the overlaps list
 			if(node.is_leaf() && node.object != obj) {
-				overlaps.push_front(node.object);
+				overlaps.push_back(node.object);
 			} else {
 				// if it is not the leaf add the nodes children to the stack to check
 				stack.push(node.left_node_index);
@@ -154,12 +154,12 @@ void AABB_Tree::insert_leaf(unsigned leaf_index) {
 		float minimum_down_cost = 2 * (merged_aabb.surface_area - tree_node.aabb.surface_area);
 
 		// check the cost of adding the leaf to the left child
-		float cost_left = (left_node.is_leaf) ?
+		float cost_left = (left_node.is_leaf()) ?
 			leaf_node.aabb.merge(left_node.aabb).surface_area + minimum_down_cost :
 			cost_left = (leaf_node.aabb.merge(left_node.aabb).surface_area - left_node.aabb.surface_area) + minimum_down_cost;
 
 		// check the cost of adding the leaf to the right child
-		float cost_right = (right_node.is_leaf) ?
+		float cost_right = (right_node.is_leaf()) ?
 			leaf_node.aabb.merge(right_node.aabb).surface_area + minimum_down_cost :
 			cost_right = (leaf_node.aabb.merge(right_node.aabb).surface_area - right_node.aabb.surface_area) + minimum_down_cost;
 
