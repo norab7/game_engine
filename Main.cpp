@@ -17,12 +17,9 @@ int main(int argc, char** argv) {
 	std::map<std::shared_ptr<I_AABB>, std::shared_ptr<GameObject>> object_map;
 
 	srand(glfwGetTime());
-	GameObject left = *new GameObject("left", "resources/graphics_objects/lamp_standing.obj", glm::vec3(-5, 10, 0));
-	GameObject right = *new GameObject("right", "resources/graphics_objects/lamp_standing.obj", glm::vec3(1, 10, 0));
-
-
-	game_objects.push_back(std::make_shared<GameObject>(left));
-	game_objects.push_back(std::make_shared<GameObject>(right));
+	GameObject left = *new GameObject("left", "resources/graphics_objects/lamp_standing.obj", glm::vec3(0, 10, 0)); game_objects.push_back(std::make_shared<GameObject>(left));
+	//GameObject right = *new GameObject("right", "resources/graphics_objects/lamp_standing.obj", glm::vec3(0, 0, 0)); game_objects.push_back(std::make_shared<GameObject>(right));
+	GameObject floor = *new GameObject("floor", "resources/graphics_objects/lamp_standing.obj", glm::vec3(0, 0, 0)); game_objects.push_back(std::make_shared<GameObject>(floor));
 
 	for(unsigned i = 0; i < game_objects.size(); i++) {
 		boundary_volume.insert(game_objects[i]);
@@ -35,7 +32,7 @@ int main(int argc, char** argv) {
 	float sensitivity = 1000;
 
 	bool collision = false;
-	glm::vec3 gravity {0,-0.000981,0};
+	glm::vec3 gravity {0,-0.0000981,0};
 
 	float last = glfwGetTime();
 	float timer = last;
@@ -54,18 +51,36 @@ int main(int argc, char** argv) {
 		// Process Inputs
 		process_input();
 
+		// Physics and movement
 		while(delta >= 1) {
-			for(std::shared_ptr<GameObject> object : game_objects) {
-				GameObject& g = (*object);
-				g.add_force(gravity);
+			for(unsigned i = 0; i < game_objects.size(); i++) {
+				GameObject& g = (*game_objects[i]);
+				if(g.get_id() == "floor" || !g.flying) { continue; }
 
-				if(g.get_position().y < 0) {
-					g.add_force(glm::vec3(0, 0.0015, 0));
-				}
-				g.simulate();
+				g.add_force(gravity, delta);
+
+				if(g.get_position().y <= 0) { g.set_position(glm::vec3(0)); }
 			}
 			updates++;
 			delta--;
+
+
+		}
+
+
+		// Collisions resolution
+		for(unsigned i = 0; i < game_objects.size(); i++) {
+			GameObject& g = (*game_objects[i]);
+			g.simulate(delta);
+			std::vector<std::shared_ptr<I_AABB>> collisions = boundary_volume.check_overlaps(game_objects[i]);
+			if(!collisions.empty()) {
+				for(unsigned j = 0; j < collisions.size(); j++) {
+
+					std::cout << g.get_velocity().y << std::endl;
+					g.set_velocity((-g.get_velocity() - glm::vec3(0, 0.005, 0)));// will get the velocity from the object eventually
+					if(g.get_velocity().y >= -0.001 && g.get_velocity().y <= 0.001) { g.set_velocity(glm::vec3(0));  g.flying = false; }
+				}
+			}
 		}
 
 		// Render Scene

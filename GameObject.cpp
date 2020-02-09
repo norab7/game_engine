@@ -14,18 +14,27 @@ GameObject::~GameObject() {
 
 }
 
-void GameObject::add_force(glm::vec3 f) {
-	force += f;
+void GameObject::add_force(glm::vec3 f , const float& delta) {
+	glm::vec3 force = (f * mass);
+	glm::vec3 acceleration = force / mass;
+	velocity += acceleration * delta;
+	std::cout << velocity.y << std::endl;
 }
 
-void GameObject::simulate() {
-	velocity.x = ((force.x / mass) * time_step);
-	velocity.y = ((force.y / mass) * time_step);
-	velocity.z = ((force.z / mass) * time_step);
-	set_position(get_position() + velocity);
-	time_step++;
+void GameObject::simulate(const float& delta) {
+	set_position(get_position() + velocity * delta);
+}
 
-	force *= 0;
+void GameObject::add_velocity(glm::vec3 v) {
+	velocity += v;
+}
+
+void GameObject::set_velocity(glm::vec3 v) {
+	velocity = v;
+}
+
+glm::vec3 GameObject::get_velocity() {
+	return velocity;
 }
 
 AABB GameObject::get_AABB() const {
