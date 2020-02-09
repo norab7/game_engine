@@ -14,11 +14,22 @@ GameObject::~GameObject() {
 
 }
 
+void GameObject::add_force(glm::vec3 f) {
+	force += f;
+}
+
+void GameObject::simulate() {
+	velocity.x = ((force.x / mass) * time_step);
+	velocity.y = ((force.y / mass) * time_step);
+	velocity.z = ((force.z / mass) * time_step);
+	set_position(get_position() + velocity);
+	time_step++;
+
+	force *= 0;
+}
+
 AABB GameObject::get_AABB() const {
 
 	const glm::vec3 position = get_position();
-	//std::cout << "(" << position.x << ", " << position.y << ", " << position.z << ") ";
-
-	//return *new AABB(bounds_min.x, bounds_min.y, bounds_min.z, bounds_max.x, bounds_max.y, bounds_max.z);
-	return *new AABB(bounds_min.x + position.x, bounds_min.y + position.y, bounds_min.z + position.z, bounds_max.x +position.x, bounds_max.y + position.y, bounds_max.z + position.z);
+	return *new AABB(bounds_min.x + position.x, bounds_min.y + position.y, bounds_min.z + position.z, bounds_max.x + position.x, bounds_max.y + position.y, bounds_max.z + position.z);
 }
